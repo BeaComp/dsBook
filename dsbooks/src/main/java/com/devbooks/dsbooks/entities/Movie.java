@@ -1,4 +1,5 @@
 package com.devbooks.dsbooks.entities;
+
 import java.util.Objects;
 
 import jakarta.persistence.Column;
@@ -8,39 +9,45 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
-
 @Entity
-@Table(name = "tb_book")
-public class Book {
+@Table(name = "tb_filme")
+public class Movie {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 	private String title;
 	
-	@Column(name = "book_year")
+	@Column(name = "movie_year")
 	private Integer year;
 	private String genre;
+	private String platforms;
+	private Double score;
 	private String imgUrl;
-    private String shortDescription;
-    private String longDescription;
+	
+	@Column(columnDefinition = "TEXT")
+	private String shortDescription;
 
-    public Book() {
-        
+	@Column(columnDefinition = "TEXT")
+	private String longDescription;
+	
+    public Movie() {
     }
-
-    public Book(Long id, String title, Integer year, String genre, String imgUrl,
+    
+	public Movie(Long id, String title, Integer year, String genre, String platforms, Double score, String imgUrl,
 			String shortDescription, String longDescription) {
 		this.id = id;
 		this.title = title;
 		this.year = year;
 		this.genre = genre;
+		this.platforms = platforms;
+		this.score = score;
 		this.imgUrl = imgUrl;
 		this.shortDescription = shortDescription;
 		this.longDescription = longDescription;		
 	}
 
-    public Long getId() {
+	public Long getId() {
 		return id;
 	}
 
@@ -72,7 +79,21 @@ public class Book {
 		this.genre = genre;
 	}
 
+	public String getPlatforms() {
+		return platforms;
+	}
 
+	public void setPlatforms(String platforms) {
+		this.platforms = platforms;
+	}
+
+	public Double getScore() {
+		return score;
+	}
+
+	public void setScore(Double score) {
+		this.score = score;
+	}
 
 	public String getImgUrl() {
 		return imgUrl;
@@ -111,8 +132,7 @@ public class Book {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Book other = (Book) obj;
+		Movie other = (Movie) obj;
 		return Objects.equals(id, other.id);
 	}
-    
 }
