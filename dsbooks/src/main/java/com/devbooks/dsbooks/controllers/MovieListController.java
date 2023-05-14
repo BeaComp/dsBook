@@ -9,8 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 import com.devbooks.dsbooks.dto.MovieListDTO;
-
+import com.devbooks.dsbooks.dto.MovieMinDTO;
 import com.devbooks.dsbooks.services.MovieListService;
+import com.devbooks.dsbooks.services.MovieService;
 
 
 @RestController
@@ -20,9 +21,18 @@ public class MovieListController {
     @Autowired
     private MovieListService movieListService;
 
+    @Autowired
+    private MovieService movieService;
+
     @GetMapping
     public List<MovieListDTO> findAll() {
         List<MovieListDTO> result = movieListService.findAll();
+        return result;
+    }
+
+    @GetMapping(value = "/{listId}/movies")
+    public List<MovieMinDTO> findByList(@PathVariable Long listId) {
+        List<MovieMinDTO> result = movieService.findByList(listId);
         return result;
     }
 

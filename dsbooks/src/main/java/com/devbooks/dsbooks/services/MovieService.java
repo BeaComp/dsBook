@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.devbooks.dsbooks.dto.MovieDTO;
 import com.devbooks.dsbooks.dto.MovieMinDTO;
 import com.devbooks.dsbooks.entities.Movie;
+import com.devbooks.dsbooks.projections.MovieMinProjection;
 import com.devbooks.dsbooks.repositories.MovieRespository;
 @Service
 public class MovieService {
@@ -26,6 +27,12 @@ public class MovieService {
     @Transactional(readOnly = true)
     public List<MovieMinDTO> findAll() {
         List<Movie> result = movieRepository.findAll();
+        return result.stream().map(x -> new MovieMinDTO(x)).toList();
+    }
+
+    @Transactional(readOnly = true)
+    public List<MovieMinDTO> findByList(Long listId) {
+        List<MovieMinProjection> result = movieRepository.searchByList(listId);
         return result.stream().map(x -> new MovieMinDTO(x)).toList();
     }
 }
